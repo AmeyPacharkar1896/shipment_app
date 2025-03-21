@@ -8,16 +8,10 @@ abstract class ShipmentEvent extends Equatable {
 }
 
 class ShippingRateRequested extends ShipmentEvent {
-  final String pickupAddress;
-  final String deliveryAddress;
-  final String courier;
+  final ShippingModel shipmentRequest;
 
-  const ShippingRateRequested({
-    required this.pickupAddress,
-    required this.deliveryAddress,
-    required this.courier,
-  });
+  const ShippingRateRequested({required this.shipmentRequest});
 
   @override
-  List<Object> get props => [pickupAddress, deliveryAddress, courier];
+  List<Object> get props => [shipmentRequest];
 }

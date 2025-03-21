@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shipment_app/models/shipping_model.dart';
 import 'package:shipment_app/services/shipping_service.dart';
 
 part "shipment_event.dart";
@@ -18,11 +19,7 @@ class ShipmentBloc extends Bloc<ShipmentEvent, ShipmentState> {
       ShippingRateRequested event, Emitter<ShipmentState> emit) async {
     emit(ShipmentLoading());
     try {
-      final rate = await shippingService.fetchShippingRate(
-        pickupAddress: event.pickupAddress,
-        deliveryAddress: event.deliveryAddress,
-        courier: event.courier,
-      );
+      final rate = await shippingService.fetchShippingRate(event.shipmentRequest);
       emit(ShipmentLoaded(rate: rate));
     } catch (e) {
       emit(ShipmentError(message: e.toString()));
